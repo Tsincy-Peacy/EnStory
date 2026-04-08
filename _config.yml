@@ -1,0 +1,45 @@
+title: "EnStory — The Story of English Words"
+description: "探索英语单词的起源与历史沿革，了解每个单词背后的故事。"
+url: "https://tsincy-peacy.github.io"
+baseurl: "/EnStore"
+
+# 作者信息
+author:
+  name: "EnStory"
+
+# 构建设置
+markdown: kramdown
+highlighter: rouge
+permalink: /words/:slug/
+
+# 插件
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# 集合：单词
+collections:
+  words:
+    output: true
+    permalink: /words/:name/
+
+# 默认 Front Matter
+defaults:
+  - scope:
+      path: ""
+      type: "words"
+    values:
+      layout: "word"
+
+# 排除文件
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - node_modules/
+  - vendor/
+
+# 分页功能如需启用，请添加 jekyll-paginate gem 并取消以下注释
+# paginate: 12
+# paginate_path: "/page/:num/"

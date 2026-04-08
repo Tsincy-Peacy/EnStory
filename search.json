@@ -1,0 +1,15 @@
+---
+layout: null
+---
+[
+  {% for word in site.words %}
+  {
+    "title": {{ word.title | jsonify }},
+    "definition": {{ word.definition | jsonify }},
+    "phonetic": {{ word.phonetic | default: "" | jsonify }},
+    "part_of_speech": {{ word.part_of_speech | default: "" | jsonify }},
+    "url": {{ word.url | relative_url | jsonify }},
+    "tags": {{ word.tags | default: "" | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+]

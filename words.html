@@ -1,0 +1,96 @@
+---
+layout: default
+title: "词汇库"
+permalink: /words/
+---
+
+<div class="container">
+  <div class="page-header">
+    <h1 class="page-title">词汇库</h1>
+    <p class="page-subtitle">共收录 <strong>{{ site.words | size }}</strong> 个词条，持续更新中</p>
+  </div>
+
+  <!-- 筛选栏 -->
+  <div class="filter-bar">
+    <input type="text" id="filterInput" placeholder="在词汇库中搜索…" class="filter-input">
+    <div class="filter-tags" id="tagFilters">
+      <button class="tag-btn active" data-tag="all">全部</button>
+      {% assign all_tags = site.words | map: "tags" | flatten | uniq | sort %}
+      {% for tag in all_tags %}
+        {% if tag %}
+        <button class="tag-btn" data-tag="{{ tag }}">{{ tag }}</button>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- 单词网格 -->
+  <div class="words-grid words-index-grid" id="wordsGrid">
+    {% assign sorted_words = site.words | sort: "title" %}
+    {% for word in sorted_words %}
+    <a href="{{ word.url | relative_url }}" class="word-card"
+       data-title="{{ word.title | downcase }}"
+       data-tags="{{ word.tags | join: ',' | downcase }}">
+      <div class="word-card-inner">
+        <span class="word-card-title">{{ word.title }}</span>
+        {% if word.phonetic %}
+        <span class="word-card-phonetic">{{ word.phonetic }}</span>
+        {% endif %}
+        {% if word.part_of_speech %}
+        <span class="word-card-pos">{{ word.part_of_speech }}</span>
+        {% endif %}
+        <p class="word-card-def">{{ word.definition }}</p>
+        {% if word.tags %}
+        <div class="word-card-tags">
+          {% for tag in word.tags %}
+          <span class="word-tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+
+  <div class="no-results" id="noResults" style="display:none;">
+    没有找到匹配的单词。
+  </div>
+</div>
+
+<script>
+const filterInput = document.getElementById('filterInput');
+const wordsGrid = document.getElementById('wordsGrid');
+const noResults = document.getElementById('noResults');
+const tagBtns = document.querySelectorAll('.tag-btn');
+let activeTag = 'all';
+
+function filterWords() {
+  const q = filterInput.value.trim().toLowerCase();
+  const cards = wordsGrid.querySelectorAll('.word-card');
+  let visible = 0;
+  cards.forEach(card => {
+    const title = card.dataset.title || '';
+    const tags = card.dataset.tags || '';
+    const matchQ = !q || title.includes(q);
+    const matchTag = activeTag === 'all' || tags.includes(activeTag);
+    if (matchQ && matchTag) {
+      card.style.display = '';
+      visible++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+  noResults.style.display = visible === 0 ? 'block' : 'none';
+}
+
+filterInput.addEventListener('input', filterWords);
+
+tagBtns.forEach(btn => {
+  btn.addEventListener('click', function() {
+    tagBtns.forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    activeTag = this.dataset.tag;
+    filterWords();
+  });
+});
+</script>

@@ -1,0 +1,99 @@
+---
+layout: default
+---
+
+<article class="word-page">
+  <div class="container">
+
+    <!-- 单词标题区 -->
+    <header class="word-header">
+      <div class="word-title-block">
+        <h1 class="word-title">{{ page.title }}</h1>
+        {% if page.phonetic %}
+        <span class="word-phonetic">{{ page.phonetic }}</span>
+        {% endif %}
+        {% if page.part_of_speech %}
+        <span class="word-pos">{{ page.part_of_speech }}</span>
+        {% endif %}
+      </div>
+      {% if page.definition %}
+      <p class="word-definition">{{ page.definition }}</p>
+      {% endif %}
+    </header>
+
+    <!-- 词源卡片 -->
+    {% if page.etymology %}
+    <section class="word-section etymology-section">
+      <h2 class="section-title">
+        <span class="section-icon">⚗️</span> 词源起源
+      </h2>
+      <div class="etymology-content">
+        {{ page.etymology | markdownify }}
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- 沿革时间线 -->
+    {% if page.timeline %}
+    <section class="word-section timeline-section">
+      <h2 class="section-title">
+        <span class="section-icon">📜</span> 历史沿革
+      </h2>
+      <div class="timeline">
+        {% for event in page.timeline %}
+        <div class="timeline-item">
+          <div class="timeline-period">{{ event.period }}</div>
+          <div class="timeline-body">
+            <div class="timeline-dot"></div>
+            <p class="timeline-text">{{ event.note }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- 词根词缀 -->
+    {% if page.roots %}
+    <section class="word-section roots-section">
+      <h2 class="section-title">
+        <span class="section-icon">🌱</span> 词根词缀
+      </h2>
+      <div class="roots-grid">
+        {% for root in page.roots %}
+        <div class="root-card">
+          <span class="root-form">{{ root.form }}</span>
+          <span class="root-lang">{{ root.lang }}</span>
+          <p class="root-meaning">{{ root.meaning }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- 正文内容（Markdown） -->
+    <section class="word-section content-section">
+      {{ content }}
+    </section>
+
+    <!-- 相关单词 -->
+    {% if page.related %}
+    <section class="word-section related-section">
+      <h2 class="section-title">
+        <span class="section-icon">🔗</span> 相关单词
+      </h2>
+      <div class="related-tags">
+        {% for word in page.related %}
+        <a href="{{ '/words/' | append: word | relative_url }}" class="related-tag">{{ word }}</a>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- 返回按钮 -->
+    <div class="word-footer-nav">
+      <a href="{{ '/words/' | relative_url }}" class="btn btn-outline">← 返回词汇库</a>
+    </div>
+
+  </div>
+</article>

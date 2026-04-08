@@ -1,0 +1,104 @@
+---
+layout: default
+title: "探索英语单词的故事"
+---
+
+<!-- Hero 区域 -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-text">
+      <h1 class="hero-title">每个单词<br>都有一个故事</h1>
+      <p class="hero-subtitle">探索英语词汇的起源、历史沿革与文化背景，<br>让语言学习变成一场时间旅行。</p>
+    </div>
+
+    <!-- 搜索框 -->
+    <div class="hero-search">
+      <div class="search-box">
+        <svg class="search-box-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" id="heroSearchInput" placeholder="搜索单词，如 serendipity…" autocomplete="off">
+        <button class="search-btn" id="heroSearchBtn">探索</button>
+      </div>
+      <div id="heroSearchResults" class="hero-search-results"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 精选单词 -->
+<section class="featured-section">
+  <div class="container">
+    <h2 class="section-heading">精选词条</h2>
+    <div class="words-grid">
+      {% assign featured_words = site.words | sample: 6 %}
+      {% for word in featured_words %}
+      <a href="{{ word.url | relative_url }}" class="word-card">
+        <div class="word-card-inner">
+          <span class="word-card-title">{{ word.title }}</span>
+          {% if word.phonetic %}
+          <span class="word-card-phonetic">{{ word.phonetic }}</span>
+          {% endif %}
+          {% if word.part_of_speech %}
+          <span class="word-card-pos">{{ word.part_of_speech }}</span>
+          {% endif %}
+          <p class="word-card-def">{{ word.definition }}</p>
+          <div class="word-card-hint">点击探索词源 →</div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    <div class="section-cta">
+      <a href="{{ '/words/' | relative_url }}" class="btn btn-primary">浏览全部词条</a>
+    </div>
+  </div>
+</section>
+
+<!-- 特色介绍 -->
+<section class="features-section">
+  <div class="container">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚗️</div>
+        <h3>词源追溯</h3>
+        <p>每个单词都有其出生证明——拉丁语、希腊语、古英语……追溯词语的源头，理解其本质含义。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📜</div>
+        <h3>历史沿革</h3>
+        <p>词义随时代演变。了解单词如何在数百年间改变含义，见证语言与文明的共同演化。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌱</div>
+        <h3>词根网络</h3>
+        <p>掌握一个词根，理解一族单词。词根词缀的学习让词汇量呈指数级增长。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// 首页搜索
+const heroInput = document.getElementById('heroSearchInput');
+const heroResults = document.getElementById('heroSearchResults');
+
+heroInput.addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  if (!q) { heroResults.innerHTML = ''; heroResults.classList.remove('active'); return; }
+  if (typeof window.searchIndex !== 'undefined') {
+    performSearch(q, heroResults);
+  }
+});
+
+document.getElementById('heroSearchBtn').addEventListener('click', function() {
+  const q = heroInput.value.trim().toLowerCase();
+  if (q && typeof window.searchIndex !== 'undefined') {
+    performSearch(q, heroResults);
+  }
+});
+
+heroInput.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    document.getElementById('heroSearchBtn').click();
+  }
+});
+</script>
