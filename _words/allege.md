@@ -11,9 +11,9 @@ timeline:
   - period: "13 世纪（古法语）"
     note: "古法语 *alegier* 继承拉丁语义，进入英语时写作 *alleggen*，意为「陈述、宣称」。"
   - period: "16—17 世纪"
-    note: "拼写规范化为 *allege*，词义从「引证」收窄为「在证据不足时提出主张」，隐含"存疑"色彩。"
+    note: "拼写规范化为 *allege*，词义从「引证」收窄为「在证据不足时提出主张」，隐含「存疑」色彩。"
   - period: "现代英语"
-    note: "广泛用于法律（the prosecution alleges）和新闻报道（sources allege that...），始终隐含"该主张尚未被证实"的意味。"
+    note: "广泛用于法律（the prosecution alleges）和新闻报道（sources allege that...），始终隐含「该主张尚未被证实」的意味。"
 roots:
   - form: "ad-"
     lang: "拉丁语"
