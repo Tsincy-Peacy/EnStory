@@ -1,0 +1,37 @@
+---
+layout: default
+title: "探词 — 实时词源查询"
+---
+
+<section class="lookup-page">
+  <div class="container">
+
+    <!-- 搜索区域 -->
+    <div class="lookup-hero">
+      <h1 class="lookup-title">探<span class="accent">词</span></h1>
+      <p class="lookup-subtitle">输入任意英文单词，实时获取词源解析</p>
+      <div class="lookup-search-wrap">
+        <div class="lookup-search-box">
+          <svg class="lookup-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input type="text" id="lookupInput" placeholder="输入单词，如 serendipity…" autocomplete="off" spellcheck="false">
+          <button class="lookup-btn" id="lookupBtn">查词源</button>
+        </div>
+        <div class="lookup-tips">
+          <span>试试：</span>
+          <button class="tip-word" data-word="serendipity">serendipity</button>
+          <button class="tip-word" data-word="nostalgia">nostalgia</button>
+          <button class="tip-word" data-word="philosophy">philosophy</button>
+          <button class="tip-word" data-word="catastrophe">catastrophe</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 结果区域 -->
+    <div id="lookupResult" class="lookup-result-area"></div>
+
+  </div>
+</section>
+
+<script src="{{ '/assets/js/lookup.js' | relative_url }}"></script>

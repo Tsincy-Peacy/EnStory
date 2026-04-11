@@ -1,0 +1,35 @@
+---
+layout: default
+title: "单词本"
+---
+
+<section class="wordbook-page">
+  <div class="container">
+    <header class="page-header">
+      <div class="wordbook-header-row">
+        <div>
+          <h1 class="page-title">📖 我的单词本</h1>
+          <p class="page-subtitle">收藏的词汇，随时复习</p>
+        </div>
+        <div class="wordbook-actions">
+          <span class="wordbook-count" id="wordbookCount">0 个单词</span>
+          <button class="btn btn-outline btn-sm" id="clearAllBtn">清空单词本</button>
+          <button class="btn btn-outline btn-sm" id="exportBtn">导出为文本</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 单词本网格 -->
+    <div id="wordbookGrid" class="wordbook-grid"></div>
+
+    <!-- 空状态 -->
+    <div id="wordbookEmpty" class="wordbook-empty" style="display:none">
+      <div class="empty-icon">📚</div>
+      <h3>单词本还是空的</h3>
+      <p>在「探词」页面查询单词后，点击收藏按钮即可添加到单词本</p>
+      <a href="{{ '/lookup/' | relative_url }}" class="btn btn-primary">去探词</a>
+    </div>
+  </div>
+</section>
+
+<script src="{{ '/assets/js/wordbook.js' | relative_url }}"></script>

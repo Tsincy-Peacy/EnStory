@@ -17,8 +17,8 @@ title: "探索英语单词的故事"
         <svg class="search-box-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
         </svg>
-        <input type="text" id="heroSearchInput" placeholder="搜索单词，如 serendipity…" autocomplete="off">
-        <button class="search-btn" id="heroSearchBtn">探索</button>
+        <input type="text" id="heroSearchInput" placeholder="搜索单词词源，如 serendipity…" autocomplete="off">
+        <button class="search-btn" id="heroSearchBtn">探词源</button>
       </div>
       <div id="heroSearchResults" class="hero-search-results"></div>
     </div>
@@ -77,9 +77,10 @@ title: "探索英语单词的故事"
 </section>
 
 <script>
-// 首页搜索
+// 首页搜索 — 跳转到探词页
 const heroInput = document.getElementById('heroSearchInput');
 const heroResults = document.getElementById('heroSearchResults');
+const BASE_URL = '{{ "/" | relative_url }}';
 
 heroInput.addEventListener('input', function() {
   const q = this.value.trim().toLowerCase();
@@ -90,15 +91,18 @@ heroInput.addEventListener('input', function() {
 });
 
 document.getElementById('heroSearchBtn').addEventListener('click', function() {
-  const q = heroInput.value.trim().toLowerCase();
-  if (q && typeof window.searchIndex !== 'undefined') {
-    performSearch(q, heroResults);
+  const q = heroInput.value.trim();
+  if (q) {
+    window.location.href = BASE_URL + 'lookup/?q=' + encodeURIComponent(q);
   }
 });
 
 heroInput.addEventListener('keydown', function(e) {
   if (e.key === 'Enter') {
-    document.getElementById('heroSearchBtn').click();
+    const q = heroInput.value.trim();
+    if (q) {
+      window.location.href = BASE_URL + 'lookup/?q=' + encodeURIComponent(q);
+    }
   }
 });
 </script>

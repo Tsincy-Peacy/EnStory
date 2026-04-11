@@ -19,7 +19,12 @@
       </a>
       <nav class="site-nav">
         <a href="{{ '/' | relative_url }}">首页</a>
+        <a href="{{ '/lookup/' | relative_url }}" class="nav-highlight">探词</a>
         <a href="{{ '/words/' | relative_url }}">词汇库</a>
+        <a href="{{ '/wordbook/' | relative_url }}" class="nav-wordbook" id="navWordbook">
+          <span>📖 单词本</span>
+          <span class="nav-wb-count" id="navWbCount" style="display:none"></span>
+        </a>
         <a href="{{ '/about/' | relative_url }}">关于</a>
       </nav>
       <button class="search-toggle" id="searchToggle" aria-label="搜索">
@@ -55,5 +60,18 @@
   </footer>
 
   <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
+  <script>
+    // 导航栏单词本计数
+    (function() {
+      try {
+        var wb = JSON.parse(localStorage.getItem('enstory_wordbook') || '[]');
+        var badge = document.getElementById('navWbCount');
+        if (badge && wb.length > 0) {
+          badge.textContent = wb.length;
+          badge.style.display = 'inline-flex';
+        }
+      } catch(e) {}
+    })();
+  </script>
 </body>
 </html>
